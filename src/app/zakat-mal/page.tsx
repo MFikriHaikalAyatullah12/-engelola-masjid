@@ -1,8 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Wallet, Plus, Download, Calculator, Trash2 } from 'lucide-react';
-import Sidebar from '@/components/Sidebar';
+import { Wallet, Plus, Calculator, Trash2 } from 'lucide-react';
 
 interface ZakatMal {
   id: number;
@@ -198,41 +197,33 @@ export default function ZakatMalPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Sidebar />
-      
-      <div className="lg:ml-64">
-        <div className="p-6">
-          {/* Header */}
-          <div className="flex items-center justify-between mb-8">
-            <div>
-              <div className="flex items-center gap-3 mb-2">
-                <Wallet className="w-8 h-8 text-blue-600" />
-                <h1 className="text-3xl font-bold text-gray-900">Zakat Mal</h1>
-              </div>
-              <p className="text-gray-600">Kelola penerimaan zakat mal (zakat harta)</p>
-            </div>
-            <div className="flex gap-3">
-              <button 
-                onClick={() => setShowCalculator(true)}
-                className="flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-colors"
-              >
-                <Calculator className="w-4 h-4" />
-                Kalkulator Zakat
-              </button>
-              <button className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
-                <Download className="w-4 h-4" />
-                Export
-              </button>
-              <button 
-                onClick={() => setShowForm(true)}
-                className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-              >
-                <Plus className="w-4 h-4" />
-                Tambah Zakat Mal
-              </button>
-            </div>
+    <div className="space-y-6 md:space-y-8">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <div className="flex items-center gap-2 md:gap-3 mb-2">
+            <Wallet className="w-6 h-6 md:w-8 md:h-8 text-blue-600" />
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Zakat Mal</h1>
           </div>
+          <p className="text-sm md:text-base text-gray-600">Kelola penerimaan zakat mal (zakat harta)</p>
+        </div>
+        <div className="flex flex-col sm:flex-row gap-2 md:gap-3">
+          <button 
+            onClick={() => setShowCalculator(true)}
+            className="flex items-center justify-center gap-2 px-4 py-2.5 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-colors text-sm md:text-base min-h-[44px]"
+          >
+            <Calculator className="w-4 h-4 md:w-5 md:h-5" />
+            Kalkulator
+          </button>
+          <button 
+            onClick={() => setShowForm(true)}
+            className="flex items-center justify-center gap-2 px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium text-sm md:text-base min-h-[44px]"
+          >
+            <Plus className="w-4 h-4 md:w-5 md:h-5" />
+            Tambah Zakat Mal
+          </button>
+        </div>
+      </div>
 
           {/* Calculator Modal */}
           {showCalculator && (
@@ -608,111 +599,143 @@ export default function ZakatMalPage() {
             </div>
           )}
 
-          {/* Table */}
-          <div className="bg-white rounded-lg shadow-sm">
-            <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Muzakki
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Jenis Harta
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Nilai Harta
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Nisab
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Haul
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Zakat
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Tanggal
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Status
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Aksi
-                    </th>
+      {/* Table - Desktop View */}
+      <div className="hidden md:block bg-white rounded-lg shadow-sm border border-gray-200">
+        <div className="overflow-x-auto">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-gray-50">
+              <tr>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Muzakki
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Jenis Harta
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Nilai Harta
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Zakat
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Status
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Aksi
+                </th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {loading ? (
+                <tr>
+                  <td colSpan={6} className="px-6 py-4 text-center text-gray-500">
+                    Memuat data...
+                  </td>
+                </tr>
+              ) : zakatList.length === 0 ? (
+                <tr>
+                  <td colSpan={6} className="px-6 py-4 text-center text-gray-500">
+                    Belum ada data zakat mal
+                  </td>
+                </tr>
+              ) : (
+                zakatList.map((zakat) => (
+                  <tr key={zakat.id} className="hover:bg-gray-50 transition-colors">
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div>
+                        <div className="text-sm font-medium text-gray-900">{zakat.nama_muzakki}</div>
+                        {zakat.no_telepon && <div className="text-sm text-gray-500">{zakat.no_telepon}</div>}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <span className="inline-flex px-2 py-1 text-xs font-medium rounded-full bg-purple-100 text-purple-800">
+                        {zakat.jenis_harta}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      {formatCurrency(zakat.nilai_harta)}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600">
+                      {formatCurrency(zakat.jumlah_zakat)}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <span className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
+                        zakat.status === 'diterima' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+                      }`}>
+                        {zakat.status}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm">
+                      <button
+                        onClick={() => handleDelete(zakat.id)}
+                        className="text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50 transition-colors"
+                        title="Hapus data"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </button>
+                    </td>
                   </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                  {loading ? (
-                    <tr>
-                      <td colSpan={9} className="px-6 py-4 text-center text-gray-500">
-                        Memuat data...
-                      </td>
-                    </tr>
-                  ) : zakatList.length === 0 ? (
-                    <tr>
-                      <td colSpan={9} className="px-6 py-4 text-center text-gray-500">
-                        Belum ada data zakat mal
-                      </td>
-                    </tr>
-                  ) : (
-                    zakatList.map((zakat) => (
-                      <tr key={zakat.id} className="hover:bg-gray-50">
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <div>
-                            <div className="text-sm font-medium text-gray-900">{zakat.nama_muzakki}</div>
-                            {zakat.no_telepon && <div className="text-sm text-gray-500">{zakat.no_telepon}</div>}
-                          </div>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <span className="inline-flex px-2 py-1 text-xs font-medium rounded-full bg-purple-100 text-purple-800">
-                            {zakat.jenis_harta}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                          {formatCurrency(zakat.nilai_harta)}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                          {formatCurrency(zakat.nisab)}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <span className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
-                            zakat.haul_terpenuhi ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-                          }`}>
-                            {zakat.haul_terpenuhi ? 'Terpenuhi' : 'Belum'}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                          {formatCurrency(zakat.jumlah_zakat)}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                          {new Date(zakat.tanggal_bayar).toLocaleDateString('id-ID')}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <span className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
-                            zakat.status === 'diterima' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
-                          }`}>
-                            {zakat.status}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                          <button
-                            onClick={() => handleDelete(zakat.id)}
-                            className="text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50 transition-colors"
-                            title="Hapus data"
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </button>
-                        </td>
-                      </tr>
-                    ))
-                  )}
-                </tbody>
-              </table>
-            </div>
-          </div>
+                ))
+              )}
+            </tbody>
+          </table>
         </div>
+      </div>
+
+      {/* Mobile Card View */}
+      <div className="md:hidden space-y-4">
+        {loading ? (
+          <div className="text-center py-8 text-gray-500">
+            Memuat data...
+          </div>
+        ) : zakatList.length === 0 ? (
+          <div className="text-center py-8 text-gray-500">
+            Belum ada data zakat mal
+          </div>
+        ) : (
+          zakatList.map((zakat) => (
+            <div key={zakat.id} className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+              <div className="flex items-start justify-between mb-3">
+                <div className="flex-1">
+                  <h3 className="font-medium text-gray-900 text-sm">{zakat.nama_muzakki}</h3>
+                  <p className="text-xs text-gray-500 mt-1">{zakat.no_telepon}</p>
+                  <div className="flex items-center gap-2 mt-2">
+                    <span className="inline-flex px-2 py-1 text-xs font-medium rounded-full bg-purple-100 text-purple-800">
+                      {zakat.jenis_harta}
+                    </span>
+                    <span className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
+                      zakat.status === 'diterima' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+                    }`}>
+                      {zakat.status}
+                    </span>
+                  </div>
+                </div>
+                <button
+                  onClick={() => handleDelete(zakat.id)}
+                  className="text-red-600 hover:text-red-900 p-2 rounded hover:bg-red-50 transition-colors"
+                  title="Hapus data"
+                >
+                  <Trash2 className="h-4 w-4" />
+                </button>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-2 text-xs text-gray-600 mb-3">
+                <div>
+                  <span className="font-medium">Nilai Harta:</span>
+                  <p className="text-gray-900 font-medium">{formatCurrency(zakat.nilai_harta)}</p>
+                </div>
+                <div>
+                  <span className="font-medium">Zakat:</span>
+                  <p className="text-blue-600 font-medium">{formatCurrency(zakat.jumlah_zakat)}</p>
+                </div>
+              </div>
+              
+              <div className="text-xs text-gray-500">
+                <span className="font-medium">Tanggal:</span> {new Date(zakat.tanggal_bayar).toLocaleDateString('id-ID')}
+              </div>
+            </div>
+          ))
+        )}
       </div>
 
       {/* Delete Confirmation Dialog */}

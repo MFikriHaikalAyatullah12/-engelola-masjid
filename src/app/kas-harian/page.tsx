@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { Banknote, Plus, Download, TrendingUp, TrendingDown, Trash2 } from 'lucide-react';
-import Sidebar from '@/components/Sidebar';
 
 interface KasHarian {
   id: number;
@@ -165,87 +164,83 @@ export default function KasHarianPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Sidebar />
-      
-      <div className="lg:ml-64">
-        <div className="p-6">
-          {/* Header */}
-          <div className="flex items-center justify-between mb-8">
-            <div>
-              <div className="flex items-center gap-3 mb-2">
-                <Banknote className="w-8 h-8 text-green-600" />
-                <h1 className="text-3xl font-bold text-gray-900">Kas Harian</h1>
-              </div>
-              <p className="text-gray-600">Kelola pemasukan dan pengeluaran kas harian</p>
-            </div>
-            <div className="flex gap-3">
-              <button className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
-                <Download className="w-4 h-4" />
-                Export
-              </button>
-              <button 
-                onClick={() => setShowForm(true)}
-                className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
-              >
-                <Plus className="w-4 h-4" />
-                Tambah Transaksi
-              </button>
+    <div className="space-y-6 md:space-y-8">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <div className="flex items-center gap-2 md:gap-3 mb-2">
+            <Banknote className="w-6 h-6 md:w-8 md:h-8 text-green-600" />
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Kas Harian</h1>
+          </div>
+          <p className="text-sm md:text-base text-gray-600">Kelola pemasukan dan pengeluaran kas harian</p>
+        </div>
+        <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
+          <button className="flex items-center justify-center gap-2 px-4 py-2.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors font-medium text-sm md:text-base min-h-[44px]">
+            <Download className="w-4 h-4 md:w-5 md:h-5" />
+            Export
+          </button>
+          <button 
+            onClick={() => setShowForm(true)}
+            className="flex items-center justify-center gap-2 px-4 py-2.5 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium text-sm md:text-base min-h-[44px]"
+          >
+            <Plus className="w-4 h-4 md:w-5 md:h-5" />
+            Tambah Transaksi
+          </button>
+        </div>
+      </div>
+
+      {/* Summary Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 md:p-6">
+          <div className="flex items-center justify-between mb-3 md:mb-4">
+            <div className="p-2 rounded-lg bg-green-100 text-green-600">
+              <Banknote className="w-5 h-5 md:w-6 md:h-6" />
             </div>
           </div>
+          <div>
+            <p className="text-xs md:text-sm font-medium text-gray-600 mb-1">Saldo Saat Ini</p>
+            <p className="text-lg md:text-2xl font-bold text-gray-900">{formatCurrency(currentSaldo)}</p>
+          </div>
+        </div>
 
-          {/* Summary Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-            <div className="bg-white rounded-lg shadow-sm p-6">
-              <div className="flex items-center justify-between mb-4">
-                <div className="p-2 rounded-lg bg-green-100 text-green-600">
-                  <Banknote className="w-6 h-6" />
-                </div>
-              </div>
-              <div>
-                <p className="text-sm font-medium text-gray-600 mb-1">Saldo Saat Ini</p>
-                <p className="text-2xl font-bold text-gray-900">{formatCurrency(currentSaldo)}</p>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-lg shadow-sm p-6">
-              <div className="flex items-center justify-between mb-4">
-                <div className="p-2 rounded-lg bg-blue-100 text-blue-600">
-                  <TrendingUp className="w-6 h-6" />
-                </div>
-              </div>
-              <div>
-                <p className="text-sm font-medium text-gray-600 mb-1">Total Pemasukan</p>
-                <p className="text-2xl font-bold text-blue-600">{formatCurrency(getTotalMasuk())}</p>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-lg shadow-sm p-6">
-              <div className="flex items-center justify-between mb-4">
-                <div className="p-2 rounded-lg bg-red-100 text-red-600">
-                  <TrendingDown className="w-6 h-6" />
-                </div>
-              </div>
-              <div>
-                <p className="text-sm font-medium text-gray-600 mb-1">Total Pengeluaran</p>
-                <p className="text-2xl font-bold text-red-600">{formatCurrency(getTotalKeluar())}</p>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-lg shadow-sm p-6">
-              <div className="flex items-center justify-between mb-4">
-                <div className="p-2 rounded-lg bg-purple-100 text-purple-600">
-                  <Banknote className="w-6 h-6" />
-                </div>
-              </div>
-              <div>
-                <p className="text-sm font-medium text-gray-600 mb-1">Net Flow</p>
-                <p className={`text-2xl font-bold ${getTotalMasuk() - getTotalKeluar() >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                  {formatCurrency(getTotalMasuk() - getTotalKeluar())}
-                </p>
-              </div>
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 md:p-6">
+          <div className="flex items-center justify-between mb-3 md:mb-4">
+            <div className="p-2 rounded-lg bg-blue-100 text-blue-600">
+              <TrendingUp className="w-5 h-5 md:w-6 md:h-6" />
             </div>
           </div>
+          <div>
+            <p className="text-xs md:text-sm font-medium text-gray-600 mb-1">Total Pemasukan</p>
+            <p className="text-lg md:text-2xl font-bold text-blue-600">{formatCurrency(getTotalMasuk())}</p>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 md:p-6">
+          <div className="flex items-center justify-between mb-3 md:mb-4">
+            <div className="p-2 rounded-lg bg-red-100 text-red-600">
+              <TrendingDown className="w-5 h-5 md:w-6 md:h-6" />
+            </div>
+          </div>
+          <div>
+            <p className="text-xs md:text-sm font-medium text-gray-600 mb-1">Total Pengeluaran</p>
+            <p className="text-lg md:text-2xl font-bold text-red-600">{formatCurrency(getTotalKeluar())}</p>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 md:p-6">
+          <div className="flex items-center justify-between mb-3 md:mb-4">
+            <div className="p-2 rounded-lg bg-purple-100 text-purple-600">
+              <Banknote className="w-5 h-5 md:w-6 md:h-6" />
+            </div>
+          </div>
+          <div>
+            <p className="text-xs md:text-sm font-medium text-gray-600 mb-1">Net Flow</p>
+            <p className={`text-lg md:text-2xl font-bold ${getTotalMasuk() - getTotalKeluar() >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+              {formatCurrency(getTotalMasuk() - getTotalKeluar())}
+            </p>
+          </div>
+        </div>
+      </div>
 
           {/* Form Modal */}
           {showForm && (
@@ -378,107 +373,160 @@ export default function KasHarianPage() {
             </div>
           )}
 
-          {/* Table */}
-          <div className="bg-white rounded-lg shadow-sm">
-            <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Tanggal
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Jenis
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Kategori
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Deskripsi
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Jumlah
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Saldo
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Petugas
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Aksi
-                    </th>
+      {/* Table - Desktop View */}
+      <div className="hidden md:block bg-white rounded-lg shadow-sm border border-gray-200">
+        <div className="overflow-x-auto">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-gray-50">
+              <tr>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Tanggal
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Jenis
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Kategori
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Deskripsi
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Jumlah
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Saldo
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Aksi
+                </th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {loading ? (
+                <tr>
+                  <td colSpan={7} className="px-6 py-4 text-center text-gray-500">
+                    Memuat data...
+                  </td>
+                </tr>
+              ) : kasList.length === 0 ? (
+                <tr>
+                  <td colSpan={7} className="px-6 py-4 text-center text-gray-500">
+                    Belum ada transaksi kas
+                  </td>
+                </tr>
+              ) : (
+                kasList.map((kas) => (
+                  <tr key={kas.id} className="hover:bg-gray-50 transition-colors">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      {formatDate(kas.tanggal)}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <span className={`inline-flex items-center gap-1 px-2 py-1 text-xs font-medium rounded-full ${
+                        kas.jenis_transaksi === 'masuk' 
+                          ? 'bg-green-100 text-green-800' 
+                          : 'bg-red-100 text-red-800'
+                      }`}>
+                        {kas.jenis_transaksi === 'masuk' ? (
+                          <TrendingUp className="w-3 h-3" />
+                        ) : (
+                          <TrendingDown className="w-3 h-3" />
+                        )}
+                        {kas.jenis_transaksi}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <span className="inline-flex px-2 py-1 text-xs font-medium rounded-full bg-gray-100 text-gray-800">
+                        {kas.kategori.replace('_', ' ')}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-900">
+                      <div className="max-w-xs truncate">{kas.deskripsi}</div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                      <span className={kas.jenis_transaksi === 'masuk' ? 'text-green-600' : 'text-red-600'}>
+                        {kas.jenis_transaksi === 'masuk' ? '+' : '-'}{formatCurrency(kas.jumlah)}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                      {formatCurrency(kas.saldo_sesudah)}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm">
+                      <button
+                        onClick={() => handleDelete(kas.id)}
+                        className="text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50 transition-colors"
+                        title="Hapus data"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </button>
+                    </td>
                   </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                  {loading ? (
-                    <tr>
-                      <td colSpan={8} className="px-6 py-4 text-center text-gray-500">
-                        Memuat data...
-                      </td>
-                    </tr>
-                  ) : kasList.length === 0 ? (
-                    <tr>
-                      <td colSpan={8} className="px-6 py-4 text-center text-gray-500">
-                        Belum ada transaksi kas
-                      </td>
-                    </tr>
-                  ) : (
-                    kasList.map((kas) => (
-                      <tr key={kas.id} className="hover:bg-gray-50">
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                          {formatDate(kas.tanggal)}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <span className={`inline-flex items-center gap-1 px-2 py-1 text-xs font-medium rounded-full ${
-                            kas.jenis_transaksi === 'masuk' 
-                              ? 'bg-green-100 text-green-800' 
-                              : 'bg-red-100 text-red-800'
-                          }`}>
-                            {kas.jenis_transaksi === 'masuk' ? (
-                              <TrendingUp className="w-3 h-3" />
-                            ) : (
-                              <TrendingDown className="w-3 h-3" />
-                            )}
-                            {kas.jenis_transaksi}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <span className="inline-flex px-2 py-1 text-xs font-medium rounded-full bg-gray-100 text-gray-800">
-                            {kas.kategori.replace('_', ' ')}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4 text-sm text-gray-900">
-                          <div className="max-w-xs truncate">{kas.deskripsi}</div>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                          <span className={kas.jenis_transaksi === 'masuk' ? 'text-green-600' : 'text-red-600'}>
-                            {kas.jenis_transaksi === 'masuk' ? '+' : '-'}{formatCurrency(kas.jumlah)}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                          {formatCurrency(kas.saldo_sesudah)}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                          {kas.petugas}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                          <button
-                            onClick={() => handleDelete(kas.id)}
-                            className="text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50 transition-colors"
-                            title="Hapus data"
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </button>
-                        </td>
-                      </tr>
-                    ))
-                  )}
-                </tbody>
-              </table>
-            </div>
-          </div>
+                ))
+              )}
+            </tbody>
+          </table>
         </div>
+      </div>
+
+      {/* Mobile Card View */}
+      <div className="md:hidden space-y-4">
+        {loading ? (
+          <div className="text-center py-8 text-gray-500">
+            Memuat data...
+          </div>
+        ) : kasList.length === 0 ? (
+          <div className="text-center py-8 text-gray-500">
+            Belum ada transaksi kas
+          </div>
+        ) : (
+          kasList.map((kas) => (
+            <div key={kas.id} className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+              <div className="flex items-start justify-between mb-3">
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className={`inline-flex items-center gap-1 px-2 py-1 text-xs font-medium rounded-full ${
+                      kas.jenis_transaksi === 'masuk' 
+                        ? 'bg-green-100 text-green-800' 
+                        : 'bg-red-100 text-red-800'
+                    }`}>
+                      {kas.jenis_transaksi === 'masuk' ? (
+                        <TrendingUp className="w-3 h-3" />
+                      ) : (
+                        <TrendingDown className="w-3 h-3" />
+                      )}
+                      {kas.jenis_transaksi}
+                    </span>
+                    <span className="inline-flex px-2 py-1 text-xs font-medium rounded-full bg-gray-100 text-gray-800">
+                      {kas.kategori.replace('_', ' ')}
+                    </span>
+                  </div>
+                  <p className="text-sm font-medium text-gray-900 mb-1">{kas.deskripsi}</p>
+                  <p className="text-xs text-gray-500">{kas.petugas} • {formatDate(kas.tanggal)}</p>
+                </div>
+                <button
+                  onClick={() => handleDelete(kas.id)}
+                  className="text-red-600 hover:text-red-900 p-2 rounded hover:bg-red-50 transition-colors"
+                  title="Hapus data"
+                >
+                  <Trash2 className="h-4 w-4" />
+                </button>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-2 text-xs text-gray-600">
+                <div>
+                  <span className="font-medium">Jumlah:</span>
+                  <p className={`font-medium ${kas.jenis_transaksi === 'masuk' ? 'text-green-600' : 'text-red-600'}`}>
+                    {kas.jenis_transaksi === 'masuk' ? '+' : '-'}{formatCurrency(kas.jumlah)}
+                  </p>
+                </div>
+                <div>
+                  <span className="font-medium">Saldo:</span>
+                  <p className="text-gray-900 font-medium">{formatCurrency(kas.saldo_sesudah)}</p>
+                </div>
+              </div>
+            </div>
+          ))
+        )}
       </div>
 
       {/* Delete Confirmation Dialog */}
