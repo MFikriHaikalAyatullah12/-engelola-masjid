@@ -534,14 +534,15 @@ export default function PengeluaranPage() {
                     Jumlah (Rp) *
                   </label>
                   <input
-                    type="number"
-                    min="0"
+                    type="text"
                     required
-                    value={formData.jumlah || ''}
+                    value={formData.jumlah ? formData.jumlah.toLocaleString('id-ID') : ''}
                     onChange={(e) => {
-                      const value = parseFloat(e.target.value);
-                      setFormData({...formData, jumlah: value >= 0 ? value : 0});
+                      const value = e.target.value.replace(/[^\d]/g, '');
+                      const numValue = value ? parseInt(value) : 0;
+                      setFormData({...formData, jumlah: numValue >= 0 ? numValue : 0});
                     }}
+                    placeholder="0"
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-gray-900"
                   />
                 </div>

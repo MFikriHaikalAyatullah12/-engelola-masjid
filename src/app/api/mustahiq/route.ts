@@ -22,11 +22,9 @@ export async function POST(request: Request) {
   try {
     const data = await request.json();
     
-    const id = 'mus_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-    
     const result = await pool.query(
-      'INSERT INTO mustahiq (id, nama, alamat, no_telepon, kategori, status, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6, NOW(), NOW()) RETURNING *',
-      [id, data.nama, data.alamat, data.no_telepon || data.no_hp, data.kategori, data.status || 'aktif']
+      'INSERT INTO mustahiq (nama, alamat, no_telepon, kategori, status, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, NOW(), NOW()) RETURNING *',
+      [data.nama, data.alamat, data.no_telepon || data.no_hp, data.kategori, data.status || 'aktif']
     );
     
     return NextResponse.json(result.rows[0], { status: 201 });

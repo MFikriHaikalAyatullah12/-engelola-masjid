@@ -307,42 +307,6 @@ export async function GET(request: NextRequest) {
       yPosition = drawTable(20, yPosition, pengeluaranData, [90, 70]);
       yPosition += 15;
 
-      // Summary Section tanpa kotak - hanya judul
-      doc.setFontSize(14);
-      doc.setFont('helvetica', 'bold');
-      doc.setTextColor(45, 55, 72);
-      doc.text('RINGKASAN KEUANGAN', 105, yPosition, { align: 'center' });
-      yPosition += 10;
-
-      const totalZakat = (parseFloat(zakatFitrah.total_uang) || 0) + (parseFloat(zakatMal.total) || 0);
-      const totalSemua = totalZakat + totalPemasukan;
-      const totalKeluarSemua = totalPengeluaranKas + (parseFloat(pengeluaran.total_pengeluaran) || 0);
-      const saldoAkhir = totalSemua - totalKeluarSemua;
-      const sisaKas = parseFloat(currentSaldo.saldo_kas_saat_ini) || 0;
-
-      // Debug log untuk memastikan data ada
-      console.log('Debug data:', {
-        totalZakat,
-        totalPemasukan,
-        totalSemua,
-        totalKeluarSemua,
-        saldoAkhir,
-        sisaKas,
-        currentSaldoRaw: currentSaldo
-      });
-
-      const summaryData = [
-        ['Keterangan', 'Jumlah'],
-        ['Total Zakat (Fitrah + Mal)', formatCurrency(totalZakat)],
-        ['Total Pemasukan Lainnya', formatCurrency(totalPemasukan)],
-        ['Total Pemasukan Keseluruhan', formatCurrency(totalSemua)],
-        ['Total Pengeluaran Keseluruhan', formatCurrency(totalKeluarSemua)],
-        ['SALDO AKHIR PERIODE', formatCurrency(saldoAkhir)],
-        ['TOTAL SISA KAS SAAT INI', formatCurrency(sisaKas)]
-      ];
-      
-      yPosition = drawTable(20, yPosition, summaryData, [90, 70]);
-
       // Footer yang bersih tanpa kotak
       const pageHeight = doc.internal.pageSize.height;
       
