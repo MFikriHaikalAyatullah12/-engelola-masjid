@@ -190,7 +190,7 @@ export default function KasHarianPage() {
       </div>
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 md:p-6">
           <div className="flex items-center justify-between mb-3 md:mb-4">
             <div className="p-2 rounded-lg bg-green-100 text-green-600">
@@ -217,18 +217,6 @@ export default function KasHarianPage() {
 
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 md:p-6">
           <div className="flex items-center justify-between mb-3 md:mb-4">
-            <div className="p-2 rounded-lg bg-red-100 text-red-600">
-              <TrendingDown className="w-5 h-5 md:w-6 md:h-6" />
-            </div>
-          </div>
-          <div>
-            <p className="text-xs md:text-sm font-medium text-gray-600 mb-1">Total Pengeluaran</p>
-            <p className="text-lg md:text-2xl font-bold text-red-600">{formatCurrency(getTotalKeluar())}</p>
-          </div>
-        </div>
-
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 md:p-6">
-          <div className="flex items-center justify-between mb-3 md:mb-4">
             <div className="p-2 rounded-lg bg-purple-100 text-purple-600">
               <Banknote className="w-5 h-5 md:w-6 md:h-6" />
             </div>
@@ -244,12 +232,15 @@ export default function KasHarianPage() {
 
           {/* Form Modal */}
           {showForm && (
-            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-              <div className="bg-white rounded-lg p-6 w-full max-w-md">
-                <h2 className="text-xl font-bold mb-4">Tambah Transaksi Kas</h2>
-                <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+              <div className="bg-white rounded-xl shadow-xl w-full max-w-md max-h-[90vh] overflow-y-auto border border-gray-200">
+                <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 rounded-t-xl">
+                  <h2 className="text-xl font-bold text-gray-900">Tambah Transaksi Kas</h2>
+                </div>
+                
+                <form id="kasForm" onSubmit={handleSubmit} className="px-6 py-4 space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
                       Tanggal *
                     </label>
                     <input
@@ -257,12 +248,12 @@ export default function KasHarianPage() {
                       required
                       value={formData.tanggal}
                       onChange={(e) => setFormData({...formData, tanggal: e.target.value})}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-900"
+                      className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 text-gray-900 transition-colors"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
                       Jenis Transaksi *
                     </label>
                     <select
@@ -272,7 +263,7 @@ export default function KasHarianPage() {
                         jenis_transaksi: e.target.value,
                         kategori: kategoriOptions[e.target.value as keyof typeof kategoriOptions][0]
                       })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-900"
+                      className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 text-gray-900 transition-colors"
                     >
                       <option value="masuk">Pemasukan</option>
                       <option value="keluar">Pengeluaran</option>
@@ -280,13 +271,13 @@ export default function KasHarianPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
                       Kategori *
                     </label>
                     <select
                       value={formData.kategori}
                       onChange={(e) => setFormData({...formData, kategori: e.target.value})}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-900"
+                      className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 text-gray-900 transition-colors"
                     >
                       {kategoriOptions[formData.jenis_transaksi as keyof typeof kategoriOptions].map(kategori => (
                         <option key={kategori} value={kategori}>
@@ -297,21 +288,21 @@ export default function KasHarianPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
                       Deskripsi *
                     </label>
                     <textarea
                       required
                       value={formData.deskripsi}
                       onChange={(e) => setFormData({...formData, deskripsi: e.target.value})}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-900"
-                      rows={2}
+                      className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 text-gray-900 transition-colors resize-none"
+                      rows={3}
                       placeholder="Deskripsi transaksi..."
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
                       Jumlah (Rp) *
                     </label>
                     <input
@@ -323,12 +314,13 @@ export default function KasHarianPage() {
                         const value = parseFloat(e.target.value);
                         setFormData({...formData, jumlah: value >= 0 ? value : 0});
                       }}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-900"
+                      className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 text-gray-900 transition-colors"
+                      placeholder="0"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
                       Petugas *
                     </label>
                     <input
@@ -336,14 +328,15 @@ export default function KasHarianPage() {
                       required
                       value={formData.petugas}
                       onChange={(e) => setFormData({...formData, petugas: e.target.value})}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-900"
+                      className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 text-gray-900 transition-colors"
+                      placeholder="Nama petugas"
                     />
                   </div>
 
                   {/* Preview */}
-                  <div className="bg-gray-50 p-4 rounded-lg">
-                    <div className="text-sm text-gray-600">Saldo setelah transaksi:</div>
-                    <div className={`text-lg font-bold ${
+                  <div className="bg-gradient-to-r from-gray-50 to-gray-100 p-4 rounded-lg border border-gray-200">
+                    <div className="text-sm font-medium text-gray-600 mb-1">Saldo setelah transaksi:</div>
+                    <div className={`text-xl font-bold ${
                       formData.jenis_transaksi === 'masuk' ? 'text-green-600' : 'text-red-600'
                     }`}>
                       {formData.jenis_transaksi === 'masuk' 
@@ -352,23 +345,27 @@ export default function KasHarianPage() {
                       }
                     </div>
                   </div>
+                </form>
 
-                  <div className="flex justify-end gap-3 pt-4">
+                <div className="sticky bottom-0 bg-white border-t border-gray-200 px-6 py-4 rounded-b-xl">
+                  <div className="flex justify-end gap-3">
                     <button
                       type="button"
                       onClick={() => setShowForm(false)}
-                      className="px-4 py-2 text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+                      className="px-4 py-2.5 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors border border-gray-300"
                     >
                       Batal
                     </button>
                     <button
                       type="submit"
-                      className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                      form="kasForm"
+                      onClick={handleSubmit}
+                      className="px-4 py-2.5 text-sm font-medium bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors shadow-sm"
                     >
-                      Simpan
+                      Simpan Transaksi
                     </button>
                   </div>
-                </form>
+                </div>
               </div>
             </div>
           )}

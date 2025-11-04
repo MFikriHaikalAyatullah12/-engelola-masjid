@@ -211,7 +211,7 @@ export default function MustahiqPage() {
                 placeholder="Cari berdasarkan nama atau alamat..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-gray-900"
               />
             </div>
           </div>
@@ -220,7 +220,7 @@ export default function MustahiqPage() {
             <select
               value={filterKategori}
               onChange={(e) => setFilterKategori(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-gray-900"
             >
               <option value="">Semua Kategori</option>
               {kategoriOptions.map(option => (
@@ -334,7 +334,7 @@ export default function MustahiqPage() {
               required
               value={formData.nama}
               onChange={(e) => setFormData({ ...formData, nama: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-gray-900"
             />
           </div>
 
@@ -347,7 +347,7 @@ export default function MustahiqPage() {
               value={formData.alamat}
               onChange={(e) => setFormData({ ...formData, alamat: e.target.value })}
               rows={3}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-gray-900"
             />
           </div>
 
@@ -360,7 +360,7 @@ export default function MustahiqPage() {
               required
               value={formData.no_hp}
               onChange={(e) => setFormData({ ...formData, no_hp: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-gray-900"
             />
           </div>
 
@@ -372,7 +372,7 @@ export default function MustahiqPage() {
               required
               value={formData.kategori}
               onChange={(e) => setFormData({ ...formData, kategori: e.target.value as any })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-gray-900"
             >
               {kategoriOptions.map(option => (
                 <option key={option.value} value={option.value}>
@@ -390,7 +390,7 @@ export default function MustahiqPage() {
               value={formData.keterangan}
               onChange={(e) => setFormData({ ...formData, keterangan: e.target.value })}
               rows={2}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-gray-900"
             />
           </div>
 
@@ -401,7 +401,7 @@ export default function MustahiqPage() {
             <select
               value={formData.status}
               onChange={(e) => setFormData({ ...formData, status: e.target.value as any })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-gray-900"
             >
               <option value="aktif">Aktif</option>
               <option value="tidak_aktif">Tidak Aktif</option>
