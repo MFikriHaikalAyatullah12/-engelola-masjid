@@ -167,7 +167,7 @@ export default function ZakatFitrahPage() {
                         required
                         value={formData.nama_muzakki}
                         onChange={(e) => setFormData({...formData, nama_muzakki: e.target.value})}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900"
                       />
                     </div>
                     <div>
@@ -178,7 +178,7 @@ export default function ZakatFitrahPage() {
                         type="tel"
                         value={formData.no_telepon}
                         onChange={(e) => setFormData({...formData, no_telepon: e.target.value})}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900"
                       />
                     </div>
                   </div>
@@ -190,7 +190,7 @@ export default function ZakatFitrahPage() {
                     <textarea
                       value={formData.alamat_muzakki}
                       onChange={(e) => setFormData({...formData, alamat_muzakki: e.target.value})}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900"
                       rows={2}
                     />
                   </div>
@@ -206,7 +206,7 @@ export default function ZakatFitrahPage() {
                         required
                         value={formData.jumlah_jiwa || ''}
                         onChange={(e) => setFormData({...formData, jumlah_jiwa: parseInt(e.target.value) || 0})}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900"
                       />
                     </div>
                     <div>
@@ -216,7 +216,7 @@ export default function ZakatFitrahPage() {
                       <select
                         value={formData.jenis_bayar}
                         onChange={(e) => setFormData({...formData, jenis_bayar: e.target.value})}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900"
                       >
                         <option value="beras">Beras</option>
                         <option value="gandum">Gandum</option>
@@ -237,7 +237,7 @@ export default function ZakatFitrahPage() {
                           const value = parseFloat(e.target.value);
                           setFormData({...formData, jumlah_bayar: value >= 0 ? value : 0});
                         }}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900"
                       />
                     </div>
                   </div>
@@ -257,7 +257,7 @@ export default function ZakatFitrahPage() {
                             const value = parseFloat(e.target.value);
                             setFormData({...formData, harga_per_kg: value >= 0 ? value : 0});
                           }}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900"
                         />
                       </div>
                       <div>
@@ -268,7 +268,7 @@ export default function ZakatFitrahPage() {
                           type="text"
                           value={formatCurrency(calculateTotal())}
                           readOnly
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-900"
                         />
                       </div>
                     </div>
@@ -284,7 +284,7 @@ export default function ZakatFitrahPage() {
                         required
                         value={formData.tanggal_bayar}
                         onChange={(e) => setFormData({...formData, tanggal_bayar: e.target.value})}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900"
                       />
                     </div>
                     <div>
@@ -296,7 +296,7 @@ export default function ZakatFitrahPage() {
                         required
                         value={formData.tahun_hijriah}
                         onChange={(e) => setFormData({...formData, tahun_hijriah: e.target.value})}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900"
                       />
                     </div>
                   </div>
@@ -308,7 +308,7 @@ export default function ZakatFitrahPage() {
                     <textarea
                       value={formData.keterangan}
                       onChange={(e) => setFormData({...formData, keterangan: e.target.value})}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900"
                       rows={2}
                     />
                   </div>

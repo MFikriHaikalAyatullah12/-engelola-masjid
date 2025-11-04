@@ -24,7 +24,9 @@ export default function PengeluaranPage() {
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [showApproveDialog, setShowApproveDialog] = useState(false);
   const [deleteId, setDeleteId] = useState<number | null>(null);
+  const [approveId, setApproveId] = useState<number | null>(null);
   const [formData, setFormData] = useState({
     tanggal: new Date().toISOString().split('T')[0],
     kategori: 'distribusi_zakat',
@@ -90,9 +92,16 @@ export default function PengeluaranPage() {
     }
   };
 
-  const handleApprove = async (id: number) => {
+  const handleApprove = (id: number) => {
+    setApproveId(id);
+    setShowApproveDialog(true);
+  };
+
+  const confirmApprove = async () => {
+    if (!approveId) return;
+    
     try {
-      const response = await fetch(`/api/pengeluaran/${id}`, {
+      const response = await fetch(`/api/pengeluaran/${approveId}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -102,6 +111,10 @@ export default function PengeluaranPage() {
 
       if (response.ok) {
         await fetchPengeluaran();
+        setShowApproveDialog(false);
+        setApproveId(null);
+      } else {
+        console.error('Failed to approve pengeluaran');
       }
     } catch (error) {
       console.error('Error approving pengeluaran:', error);
@@ -605,6 +618,34 @@ export default function PengeluaranPage() {
                 className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors min-h-[44px]"
               >
                 Hapus
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Approve Confirmation Dialog */}
+      {showApproveDialog && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg p-4 md:p-6 w-full max-w-md">
+            <h3 className="text-lg font-medium text-gray-900 mb-4">
+              Konfirmasi Persetujuan
+            </h3>
+            <p className="text-sm text-gray-500 mb-6">
+              Apakah Anda yakin ingin menyetujui pengeluaran ini? Setelah disetujui, pengeluaran akan dikonfirmasi dan tidak dapat dibatalkan.
+            </p>
+            <div className="flex flex-col sm:flex-row justify-end gap-3">
+              <button
+                onClick={() => setShowApproveDialog(false)}
+                className="px-4 py-2 text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors min-h-[44px]"
+              >
+                Batal
+              </button>
+              <button
+                onClick={confirmApprove}
+                className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors min-h-[44px]"
+              >
+                Ya, Setujui
               </button>
             </div>
           </div>
