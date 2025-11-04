@@ -10,7 +10,6 @@ import {
   Banknote, 
   TrendingDown, 
   Users, 
-  Settings,
   Building,
   LogOut,
   FileText,
@@ -26,7 +25,6 @@ const navigation = [
   { name: 'Pengeluaran', href: '/pengeluaran', icon: TrendingDown },
   { name: 'Mustahiq', href: '/mustahiq', icon: Users },
   { name: 'Laporan', href: '/laporan', icon: FileText },
-  { name: 'Pengaturan', href: '/settings', icon: Settings },
 ];
 
 export default function Sidebar() {

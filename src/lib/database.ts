@@ -1,6 +1,6 @@
 import pool from './db';
 import bcryptjs from 'bcryptjs';
-import type { User, UserFromDB, ZakatFitrah, ZakatMal, KasHarian, Pengeluaran, Mustahiq, DistribusiZakat, Settings } from './schemas';
+import type { User, UserFromDB, ZakatFitrah, ZakatMal, KasHarian, Pengeluaran, Mustahiq, DistribusiZakat } from './schemas';
 
 // Export pool for direct access
 export { default as pool } from './db';
@@ -278,24 +278,6 @@ export async function createDistribusiZakat(data: Omit<DistribusiZakat, 'id'>): 
   } finally {
     client.release();
   }
-}
-
-// Settings functions
-export async function getAllSettings(): Promise<Settings[]> {
-  const result = await pool.query('SELECT * FROM settings ORDER BY key ASC');
-  return result.rows;
-}
-
-export async function getSettingByKey(key: string): Promise<string | null> {
-  const result = await pool.query('SELECT value FROM settings WHERE key = $1', [key]);
-  return result.rows.length > 0 ? result.rows[0].value : null;
-}
-
-export async function updateSetting(key: string, value: string): Promise<void> {
-  await pool.query(
-    'UPDATE settings SET value = $1, updated_at = CURRENT_TIMESTAMP WHERE key = $2',
-    [value, key]
-  );
 }
 
 // Dashboard statistics

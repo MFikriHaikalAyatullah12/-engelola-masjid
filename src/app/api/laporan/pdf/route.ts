@@ -47,16 +47,6 @@ export async function GET(request: NextRequest) {
         `, [dari, sampai])
       ]);
 
-      // Get settings for masjid info
-      const settingsResult = await client.query(`
-        SELECT key, value FROM settings WHERE key IN ('nama_masjid', 'alamat_masjid')
-      `);
-      
-      const settings: { [key: string]: string } = {};
-      settingsResult.rows.forEach(row => {
-        settings[row.key] = row.value;
-      });
-
       const zakatFitrah = zakatFitrahResult.rows[0];
       const zakatMal = zakatMalResult.rows[0];
       const kas = kasResult.rows[0];
@@ -137,29 +127,21 @@ export async function GET(request: NextRequest) {
       // Set font
       doc.setFont('helvetica');
 
-      // Header
-      doc.setFontSize(18);
-      doc.setTextColor(40, 40, 40);
-      doc.text(settings.nama_masjid || 'Masjid Al-Hikmah', 105, 20, { align: 'center' });
-      
-      doc.setFontSize(11);
-      doc.text(settings.alamat_masjid || 'Alamat Masjid', 105, 30, { align: 'center' });
-      
       // Title
       doc.setFontSize(14);
       doc.setTextColor(0, 0, 0);
       doc.setFont('helvetica', 'bold');
-      doc.text('LAPORAN ZAKAT DAN KEUANGAN', 105, 45, { align: 'center' });
+      doc.text('LAPORAN ZAKAT DAN KEUANGAN', 105, 30, { align: 'center' });
       
       doc.setFontSize(11);
       doc.setFont('helvetica', 'normal');
-      doc.text(`Periode: ${formatDate(dari)} - ${formatDate(sampai)}`, 105, 55, { align: 'center' });
+      doc.text(`Periode: ${formatDate(dari)} - ${formatDate(sampai)}`, 105, 40, { align: 'center' });
 
       // Line separator
       doc.setLineWidth(0.5);
-      doc.line(20, 65, 190, 65);
+      doc.line(20, 50, 190, 50);
 
-      let yPosition = 80;
+      let yPosition = 65;
 
       // Zakat Fitrah Section
       doc.setFontSize(12);

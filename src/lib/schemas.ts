@@ -107,14 +107,6 @@ export const DistribusiZakatSchema = z.object({
   bukti_distribusi: z.string().optional(),
 });
 
-// Schema untuk Settings
-export const SettingsSchema = z.object({
-  id: z.number().optional(),
-  key: z.string().min(1).max(100),
-  value: z.string().min(1),
-  description: z.string().optional(),
-});
-
 // Types
 export type User = z.infer<typeof UserSchema>;
 export type Mustahiq = z.infer<typeof MustahiqSchema>;
@@ -123,4 +115,3 @@ export type ZakatMal = z.infer<typeof ZakatMalSchema>;
 export type KasHarian = z.infer<typeof KasHarianSchema>;
 export type Pengeluaran = z.infer<typeof PengeluaranSchema>;
 export type DistribusiZakat = z.infer<typeof DistribusiZakatSchema>;
-export type Settings = z.infer<typeof SettingsSchema>;
