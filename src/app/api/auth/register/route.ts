@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { createUser, getUserByEmail } from '@/lib/database';
+import { createUser, getUserByEmail, getUserByUsername } from '@/lib/database';
 
 export async function POST(request: Request) {
   try {
@@ -26,6 +26,15 @@ export async function POST(request: Request) {
     if (existingUser) {
       return NextResponse.json(
         { error: 'Email sudah terdaftar' },
+        { status: 400 }
+      );
+    }
+
+    // Cek apakah username sudah terdaftar
+    const existingUsername = await getUserByUsername(username);
+    if (existingUsername) {
+      return NextResponse.json(
+        { error: 'Username sudah terdaftar' },
         { status: 400 }
       );
     }

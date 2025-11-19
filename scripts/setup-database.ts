@@ -33,7 +33,7 @@ async function setupDatabase() {
     }
 
     // Create default admin user
-    const hashedPassword = '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'; // password
+    const hashedPassword = '$2a$10$rd0bUrLkOpAp4Lszb/OnJOAU.myQQ1WTawYy6qDuahiLJtjeDnrJ2'; // password
     
     try {
       await client.query(

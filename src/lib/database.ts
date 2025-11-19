@@ -28,6 +28,11 @@ export async function getUserByEmail(email: string): Promise<UserFromDB | null> 
   return result.rows.length > 0 ? result.rows[0] : null;
 }
 
+export async function getUserByUsername(username: string): Promise<UserFromDB | null> {
+  const result = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
+  return result.rows.length > 0 ? result.rows[0] : null;
+}
+
 export async function verifyPassword(password: string, hashedPassword: string): Promise<boolean> {
   return bcryptjs.compare(password, hashedPassword);
 }
