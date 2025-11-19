@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Sidebar from '../components/Sidebar';
+import ConditionalSidebar from '../components/ConditionalSidebar';
+import ConditionalMain from '../components/ConditionalMain';
+import { SessionProvider } from './SessionProvider';
 
 const inter = Inter({
   subsets: ["latin"],
@@ -20,14 +22,14 @@ export default function RootLayout({
   return (
     <html lang="id">
       <body className={`${inter.className} bg-gray-50 text-gray-900`}>
-        <div className="min-h-screen bg-gray-50">
-          <Sidebar />
-          <main className="lg:pl-64 pt-16 lg:pt-0">
-            <div className="px-4 sm:px-6 lg:px-8 py-4 lg:py-8 max-w-7xl mx-auto">
+        <SessionProvider>
+          <div className="min-h-screen bg-gray-50">
+            <ConditionalSidebar />
+            <ConditionalMain>
               {children}
-            </div>
-          </main>
-        </div>
+            </ConditionalMain>
+          </div>
+        </SessionProvider>
       </body>
     </html>
   );

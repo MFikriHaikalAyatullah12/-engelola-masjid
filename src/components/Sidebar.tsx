@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
+import { signOut, useSession } from 'next-auth/react';
 import { 
   LayoutDashboard, 
   Heart, 
@@ -15,7 +16,8 @@ import {
   FileText,
   Menu,
   X,
-  Database
+  Database,
+  User
 } from 'lucide-react';
 
 interface NavigationItem {
@@ -39,6 +41,11 @@ const navigation: NavigationItem[] = [
 export default function Sidebar() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { data: session } = useSession();
+
+  const handleLogout = async () => {
+    await signOut({ callbackUrl: '/login' });
+  };
 
   const SidebarContent = () => (
     <>
@@ -87,8 +94,25 @@ export default function Sidebar() {
         </ul>
       </nav>
       
-      <div className="p-4">
-        <button className="flex items-center gap-3 w-full px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900 rounded-lg transition-colors">
+      <div className="p-4 border-t border-gray-200">
+        {session?.user && (
+          <div className="mb-3 px-3 py-2 bg-gray-50 rounded-lg">
+            <div className="flex items-center gap-2 mb-1">
+              <User className="w-4 h-4 text-gray-500" />
+              <span className="text-sm font-medium text-gray-900 truncate">
+                {session.user.username || session.user.email}
+              </span>
+            </div>
+            <p className="text-xs text-gray-500 truncate">{session.user.email}</p>
+            <span className="inline-block mt-1 px-2 py-0.5 text-xs font-medium bg-emerald-100 text-emerald-700 rounded">
+              {session.user.role === 'admin' ? 'Administrator' : 'User'}
+            </span>
+          </div>
+        )}
+        <button 
+          onClick={handleLogout}
+          className="flex items-center gap-3 w-full px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900 rounded-lg transition-colors"
+        >
           <LogOut className="w-5 h-5 flex-shrink-0" />
           <span className="truncate">Keluar</span>
         </button>
