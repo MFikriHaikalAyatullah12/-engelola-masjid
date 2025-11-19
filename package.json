@@ -7,8 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "setup": "tsx scripts/setup-database.ts",
-    "postbuild": "npm run setup"
+    "setup": "tsx scripts/setup-database.ts"
   },
   "dependencies": {
     "@types/bcryptjs": "^2.4.6",

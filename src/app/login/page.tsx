@@ -1,11 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { signIn, useSession } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { data: session, status } = useSession();
@@ -182,5 +182,24 @@ export default function LoginPage() {
         </form>
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50">
+        <div className="text-center">
+          <div className="mx-auto h-16 w-16 bg-gradient-to-br from-green-600 to-emerald-600 rounded-full flex items-center justify-center mb-4 shadow-lg animate-pulse">
+            <svg className="h-8 w-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2.5l7 4v3h2v2h-2v10h-14v-10h-2v-2h2v-3l7-4zm0 2.5l-5 2.86v2.64h10v-2.64l-5-2.86zm-6 6.5v8h12v-8h-12zm2 2h2v4h-2v-4zm6 0h2v4h-2v-4z"/>
+            </svg>
+          </div>
+          <p className="text-gray-600">Memuat...</p>
+        </div>
+      </div>
+    }>
+      <LoginForm />
+    </Suspense>
   );
 }
