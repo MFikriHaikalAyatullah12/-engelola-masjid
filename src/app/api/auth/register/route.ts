@@ -6,6 +6,8 @@ export async function POST(request: Request) {
     // Log untuk debugging
     console.log('Register API called');
     console.log('DATABASE_URL exists:', !!process.env.DATABASE_URL);
+    console.log('DATABASE_URL preview:', process.env.DATABASE_URL?.substring(0, 50) + '...');
+    console.log('NODE_ENV:', process.env.NODE_ENV);
     
     const body = await request.json();
     const { username, email, password } = body;
