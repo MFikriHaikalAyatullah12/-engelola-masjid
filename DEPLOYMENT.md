@@ -4,7 +4,7 @@
 
 ### Untuk Development (.env):
 ```bash
-DATABASE_URL="postgresql://neondb_owner:npg_VUnADBa5v2Wf@ep-still-resonance-a1bh691h-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
+DATABASE_URL="postgresql://neondb_owner:npg_Zh9ymU4IzKDA@ep-polished-hat-a1o7cn3n-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
 NEXTAUTH_SECRET="masjid-zakat-management-system-2025-production-secret-key-very-secure"
 NEXTAUTH_URL="http://localhost:3000"
 NODE_ENV="development"
@@ -15,7 +15,7 @@ Set environment variables berikut di platform deployment Anda:
 
 1. **DATABASE_URL**: 
    ```
-   postgresql://neondb_owner:npg_VUnADBa5v2Wf@ep-still-resonance-a1bh691h-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
+   postgresql://neondb_owner:npg_Zh9ymU4IzKDA@ep-polished-hat-a1o7cn3n-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
    ```
 
 2. **NEXTAUTH_SECRET**: 
@@ -38,7 +38,7 @@ Set environment variables berikut di platform deployment Anda:
 Sebelum deploy, jalankan schema SQL di PostgreSQL Neon:
 ```bash
 # Connect ke database Neon dan jalankan:
-psql "postgresql://neondb_owner:npg_VUnADBa5v2Wf@ep-still-resonance-a1bh691h-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require"
+psql "postgresql://neondb_owner:npg_Zh9ymU4IzKDA@ep-polished-hat-a1o7cn3n-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require"
 
 # Atau upload file database/schema.sql via Neon Console
 ```

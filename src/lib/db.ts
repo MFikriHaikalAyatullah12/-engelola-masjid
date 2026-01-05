@@ -1,5 +1,10 @@
 import { Pool } from 'pg';
 
+// Log untuk debugging di production
+console.log('Initializing database connection...');
+console.log('DATABASE_URL configured:', !!process.env.DATABASE_URL);
+console.log('NODE_ENV:', process.env.NODE_ENV);
+
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
@@ -11,6 +16,15 @@ const pool = new Pool({
   // Add connection retry settings
   keepAlive: true,
   keepAliveInitialDelayMillis: 10000,
+});
+
+// Test connection on initialization
+pool.on('connect', () => {
+  console.log('Database connected successfully');
+});
+
+pool.on('error', (err) => {
+  console.error('Unexpected database error:', err);
 });
 
 export default pool;

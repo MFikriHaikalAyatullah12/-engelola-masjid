@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 
 // Load environment variables
 dotenv.config({ path: '.env.local' });
+dotenv.config({ path: '.env' });
 
 async function setupDatabase() {
   console.log('DATABASE_URL:', process.env.DATABASE_URL ? 'Loaded' : 'Not loaded');
